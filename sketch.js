@@ -11,6 +11,7 @@ function preload()
 }
 
 function setup() {
+  database = firebase.database();
 	createCanvas(500, 500);
   dog = createSprite(250,300,100,10);
   dog.addImage(dImg);
@@ -28,10 +29,11 @@ function draw() {
     dog.addImage(happyDog);
   }
   drawSprites();
+
   //add styles here
   textSize(15);
-  fill("black");
-  text("Score:" + foodStock, 250, 50);
+  fill("white");
+  text("Food Remaining:" + foodS, 180, 50);
 }
 
 function readStock(data){
@@ -39,12 +41,13 @@ function readStock(data){
 }
 
 function writeStock(x){
-
+   
   if(x<=0){
     x=0;
   }else{
     x=x-1;
   }
+
   database.ref('/').update({
     Food:x
   })
